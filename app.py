@@ -151,6 +151,16 @@ def download_worker(task_id: str, url: str, fmt: str):
             "quiet": True,
             "no_warnings": True,
             "noplaylist": True,
+            "source_address": "0.0.0.0",
+            "extractor_args": {
+                "youtube": {
+                    "player_client": ["android", "ios", "mweb", "tv"]
+                }
+            },
+            "http_headers": {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36",
+                "Accept-Language": "en-US,en;q=0.9",
+            }
         }
 
         if fmt == "mp3":
@@ -362,7 +372,18 @@ def process_telegram_download(token: str, chat_id: int, status_msg_id: int, url:
             "outtmpl": out_template,
             "format": "best[filesize<50M]/bestvideo[height<=720]+bestaudio/best",
             "quiet": True,
+            "no_warnings": True,
             "noplaylist": True,
+            "source_address": "0.0.0.0",
+            "extractor_args": {
+                "youtube": {
+                    "player_client": ["android", "ios", "mweb", "tv"]
+                }
+            },
+            "http_headers": {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36",
+                "Accept-Language": "en-US,en;q=0.9",
+            }
         }
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             meta = ydl.extract_info(url, download=True)
