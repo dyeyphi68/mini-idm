@@ -39,7 +39,7 @@
     /* Header */
     header {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
       padding-bottom: 18px;
     }
@@ -368,10 +368,6 @@
           <span>MOBILE DOWNLOADER</span>
         </div>
       </div>
-      <div class="status-badge" id="netStatus">
-        <div class="dot"></div>
-        <span>Connected to PC</span>
-      </div>
     </header>
 
     <!-- Platform Chips with Official Logos -->
@@ -478,7 +474,7 @@
       </div>
 
       <button class="btn-download" id="btnDownload">
-        ⬇️ Download Video sa Phone
+        ⬇️ Download Video
       </button>
 
       <!-- Live Download Progress Box -->
@@ -495,7 +491,7 @@
           <span id="pSpeed">-- MB/s</span>
         </div>
         <a id="btnSavePhone" class="btn-save-phone" href="#" download>
-          💾 I-Save ang Video sa Phone
+          💾 I-Save ang Video
         </a>
       </div>
     </div>
@@ -595,7 +591,7 @@
       } catch (err) {
         alert('Error: ' + err.message);
         btnDownload.disabled = false;
-        btnDownload.innerText = '⬇️ Download Video sa Phone';
+        btnDownload.innerText = '⬇️ Download Video';
       }
     });
 
@@ -616,10 +612,10 @@
           if (data.status === 'Completed') {
             clearInterval(timer);
             btnDownload.disabled = false;
-            btnDownload.innerText = '⬇️ Download Video sa Phone';
+            btnDownload.innerText = '⬇️ Download Video';
             pPct.innerText = '100%';
             pFill.style.width = '100%';
-            pStatus.innerText = 'Tapos na! Handa na i-save sa Phone.';
+            pStatus.innerText = 'Tapos na! Handa na i-save ang Video.';
             pSpeed.innerText = data.size || '';
 
             if (data.fileUrl) {
@@ -638,7 +634,7 @@
           } else if (data.status === 'Error') {
             clearInterval(timer);
             btnDownload.disabled = false;
-            btnDownload.innerText = '⬇️ Download Video sa Phone';
+            btnDownload.innerText = '⬇️ Download Video';
             pStatus.innerText = 'Nabigo: ' + (data.error || 'Unknown error');
             pFill.style.backgroundColor = '#ef4444';
           }
@@ -647,20 +643,6 @@
         }
       }, 1000);
     }
-
-    // Ping check
-    async function checkPing() {
-      try {
-        const res = await fetch('/api/ping');
-        if (res.ok) {
-          document.getElementById('netStatus').innerHTML = '<div class="dot"></div><span>Connected to PC</span>';
-        }
-      } catch (e) {
-        document.getElementById('netStatus').innerHTML = '<div class="dot" style="background:#ef4444;box-shadow:0 0 8px #ef4444"></div><span style="color:#f87171">Reconnecting...</span>';
-      }
-    }
-    setInterval(checkPing, 5000);
-    checkPing();
   </script>
 </body>
 </html>
